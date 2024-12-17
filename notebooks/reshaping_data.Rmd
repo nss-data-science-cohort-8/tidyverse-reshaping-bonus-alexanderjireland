@@ -1,0 +1,85 @@
+---
+title: "Reshaping Data"
+output: html_notebook
+---
+
+In this notebooks, we'll work with functions from the tidyr library on data from the State of Tennessee Department of Health:   https://www.tn.gov/health/health-program-areas/statistics/health-data/death-statistics.html
+
+This data comes in an Excel file, so you'll need to install the readxl library if you haven't already done so.
+
+```{r}
+library(tidyverse)
+library(readxl)
+```
+
+We'll start by reading in the data for the DAVIDSON region. 
+Remember that you can use ?read_excel if you want more information on how this function works.
+Start by using read_excel to grab the data from the "DAVIDSON" sheet from cell A7 through cell M19.
+
+```{r}
+cause_of_death <- read_excel(# fill this in)
+```
+
+The column names are not very good, so let's rename them. If we can create a vector of column names, we can use the rename_with function to rename all columns at once.
+```{r}
+column_names <- c("cause",
+                  "total_rank", "total_number", "total_rate", "total_age_adjusted",
+                  "male_rank", "male_number", "male_rate", "male_age_adjusted",
+                  "female_rank", "female_number", "female_rate", "female_age_adjusted")
+```
+
+Use the rename_with function with this vector of column names. 
+
+```{r}
+# Fill this in
+```
+
+
+If we wanted to create a plot to compare cause of death by sex, it would be quite difficult to do in the current format. Let's reshape our data so that it is easier to plot.
+
+See the tidyr cheat sheet here: https://raw.githubusercontent.com/rstudio/cheatsheets/main/tidyr.pdf
+
+Use the pivot_longer funtion and pivot all but the cause column. The result should have 3 columns, cause, name, and value.
+```{r}
+# Fill this in
+```
+
+Now, it would probably be best if we had separate columns for "sex" and "measure". Let's do that now. Use the separate_wider_delim function to separate the name column into two columns, "sex" and "measure"
+```{r}
+# Fill this in
+```
+
+
+Now, we can create a bar chart to show the rate of death by cause with a side-by-side bar chart so that can compare rates by sex.
+
+To adjust the order that the bars are displayed, we can make use of the forcats library. See the cheat sheet here: https://raw.githubusercontent.com/rstudio/cheatsheets/main/factors.pdf.
+Make sure that the bars are sorted alphabetically by cause.
+```{r}
+# Fill this in
+```
+
+But, what if we don't want to have to filter to what we want to plot each time and just want to specify a column? We can again reshape our data so that each measure is a column.
+Use the pivot_wider function to reshape your data so that it has one row per cause and sex and columns for rank, number, rate, and age-adjusted rate.
+```{r}
+# Fill this in
+```
+
+
+This code works to get the first region (DAVIDSON), but what if we want to pull in all counties? The easiest way might be to make a function.
+
+Create a function which takes as input a sheet name and which reads in the data for that sheet and returns the reshaped tibble with the data for that sheet. Make sure to add a column which contains the sheet name.
+See the user-defined functions section of https://www.datacamp.com/tutorial/functions-in-r-a-tutorial for more information.
+
+```{r}
+# Fill this in
+```
+
+We can get a list of sheet names using the excel_sheets function.
+```{r}
+sheets <- readxl::excel_sheets('../data/LCD_byRegionSex_2019.xlsx')
+```
+
+Finally, use the map function (https://purrr.tidyverse.org/reference/map.html) to apply the function you created above to all of the sheets in the Excel file and combine them together into a single tibble.
+```{r}
+
+```
