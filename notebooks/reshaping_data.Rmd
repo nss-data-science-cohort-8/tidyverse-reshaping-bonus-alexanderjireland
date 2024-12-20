@@ -17,7 +17,7 @@ Remember that you can use ?read_excel if you want more information on how this f
 Start by using read_excel to grab the data from the "DAVIDSON" sheet from cell A7 through cell M19.
 
 ```{r}
-cause_of_death <- read_excel(# fill this in)
+cause_of_death <- read_excel("../Data/LCD_byRegionSex_2019.xlsx", sheet ="DAVIDSON", col_names = TRUE, col_types = NULL, na = "", range="A7:M19")
 ```
 
 The column names are not very good, so let's rename them. If we can create a vector of column names, we can use the rename_with function to rename all columns at once.
